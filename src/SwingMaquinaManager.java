@@ -59,6 +59,8 @@ class MaquinaPanel extends JPanel {
                 if (maquina.isLigada()) {
                     maquina.desligaMaquina();
                     ligarDesligarButton.setText("Ligar Máquina");
+                    maquina.setTemperatura(0);
+                    maquina.setVelocidade(0);
                 } else {
                     maquina.ligaMaquina();
                     ligarDesligarButton.setText("Desligar Máquina");
@@ -68,7 +70,7 @@ class MaquinaPanel extends JPanel {
         });
 
         // Atualizações automáticas de temperatura e velocidade
-        Timer timer = new Timer(3000, new ActionListener() {
+        Timer timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (maquina.isLigada()) {
@@ -85,7 +87,7 @@ class MaquinaPanel extends JPanel {
     // Atualiza os dados na interface
     private void atualizarPainel() {
         statusLabel.setText("Status: " + (maquina.isLigada() ? "Ligada" : "Desligada"));
-        temperaturaLabel.setText("Temperatura: " + maquina.getTemperatura());
-        velocidadeLabel.setText("Velocidade: " + maquina.getVelocidade());
+        temperaturaLabel.setText("Temperatura: " + Math.round(maquina.getTemperatura()));
+        velocidadeLabel.setText("Velocidade: " + Math.round(maquina.getVelocidade()));
     }
 }

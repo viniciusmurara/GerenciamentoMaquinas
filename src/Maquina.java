@@ -39,6 +39,14 @@ public class Maquina implements Subject {
         return velocidade;
     }
 
+    public void setTemperatura(double temperatura) {
+        this.temperatura = temperatura;
+    }
+
+    public void setVelocidade(double velocidade) {
+        this.velocidade = velocidade;
+    }
+
     @Override
     public void notifySubscribers() {
         if (status){
