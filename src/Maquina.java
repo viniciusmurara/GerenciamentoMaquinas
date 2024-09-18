@@ -9,6 +9,7 @@ public class Maquina implements Subject {
     private double temperatura;
     private double velocidade;
     private boolean status = false;
+    private String lastAlertMessage; // Armazena a última mensagem de alerta
 
     public void addPainelControle(PainelControle painel) {
         paineisControle.add(painel);
@@ -17,6 +18,10 @@ public class Maquina implements Subject {
     public void addFuncionario(Funcionario funcionario) {
         funcionarios.add(funcionario);
         attach(funcionario);
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
     }
 
     public void ligaMaquina(){
@@ -49,25 +54,32 @@ public class Maquina implements Subject {
 
     @Override
     public void notifySubscribers() {
-        if (status){
+        if (status) {
             for (Observer o : observers) {
-                if (temperatura > 85) {
-                    o.update("Alerta! Falha detectada na máquina! Temperatura alta.");
-                } else if (temperatura < 45){
-                    o.update("Alerta! Falha detectada na máquina! Temperatura baixa.");
+                if (temperatura > 90) {
+                    lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura alta.";
+                } else if (temperatura < 40){
+                    lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura baixa.";
                 } else if (velocidade == 0){
-                    o.update("Alerta! Falha detectada na máquina! Parada forçada.");
-                } else if (velocidade < 350) {
-                    o.update("Alerta! Falha detectada na máquina! Lentidão anormal.");
+                    lastAlertMessage = "Alerta! Falha detectada na máquina! Parada forçada.";
+                } else if (velocidade < 300) {
+                    lastAlertMessage = "Alerta! Falha detectada na máquina! Lentidão anormal.";
                 } else {
-                    o.update("Nenhuma atualização enviada, tudo OK!");
+                    lastAlertMessage = null;
                 }
+                o.update(lastAlertMessage);
             }
         } else {
+            lastAlertMessage = "Máquina desligada";
             for (Observer o : observers) {
-                o.update("Máquina desligada");
+                o.update(lastAlertMessage);
             }
         }
+    }
+
+    // Retorna a última mensagem de alerta gerada
+    public String getLastAlertMessage() {
+        return lastAlertMessage;
     }
 
     @Override
