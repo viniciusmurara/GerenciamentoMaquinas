@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maquina implements Subscriber {
-    private List<Observer> observers = new ArrayList<>();
+public class Maquina implements Publisher {
+    private List<Subscriber> publishers = new ArrayList<>();
     private List<Funcionario> funcionarios = new ArrayList<>();
 
     private double temperatura;
     private double velocidade;
     private boolean status = false;
-    private String lastAlertMessage; // Armazena a última mensagem de alerta
+    private String lastAlertMessage;
 
     public void addFuncionario(Funcionario funcionario) {
         funcionarios.add(funcionario);
@@ -31,7 +31,6 @@ public class Maquina implements Subscriber {
         return status;
     }
 
-    // Retorna a última mensagem de alerta gerada
     public String getLastAlertMessage() {
         return lastAlertMessage;
     }
@@ -69,26 +68,25 @@ public class Maquina implements Subscriber {
         } else {
             lastAlertMessage = "Máquina desligada";
         }
-        for (Observer o : observers) {
-            o.update(lastAlertMessage);
+        for (Subscriber p : publishers) {
+            p.update(lastAlertMessage);
         }
     }
 
     @Override
-    public void add(Observer o) {
-        observers.add(o);
+    public void add(Subscriber o) {
+        publishers.add(o);
     }
 
     @Override
-    public void remove(Observer o) {
-        observers.remove(o);
+    public void remove(Subscriber o) {
+        publishers.remove(o);
     }
 
     // Atualiza os dados da máquina e notifica painéis de controle
     public void atualizarDadosAleatorios() {
-        this.temperatura = 30 + Math.random() * 70; // Temperatura entre 30 e 100
-        this.velocidade = Math.random() * 2000; // Velocidade entre 0 e 2000
-        notifySubscribers(); // Notifica observadores sobre a atualização
+        this.temperatura = 30 + Math.random() * 70;
+        this.velocidade = Math.random() * 2000;
+        notifySubscribers();
     }
-
 }
