@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // Classe principal que gerencia a interface gráfica para o gerenciamento de máquinas
-public class SwingMaquinaManager extends JFrame {
-    private MaquinaPanel[] maquinas = new MaquinaPanel[4]; // Array para armazenar 4 máquinas
+public class PainelControle extends JFrame {
+    private PainelMaquina[] maquinas = new PainelMaquina[4]; // Array para armazenar a quantidade de máquinas
     private JTextArea alertArea; // Área de texto para exibir mensagens de alerta
 
-    // Construtor da classe SwingMaquinaManager
-    public SwingMaquinaManager() {
+    // Construtor da classe PainelControle
+    public PainelControle() {
         setTitle("Gerenciamento de Máquinas"); // Define o título da janela
         setSize(600, 400); // Define o tamanho da janela
         setLayout(new BorderLayout()); // Configura o layout principal da janela como BorderLayout
@@ -18,7 +18,7 @@ public class SwingMaquinaManager extends JFrame {
 
         // Loop para criar e adicionar os painéis das máquinas
         for (int i = 0; i < maquinas.length; i++) {
-            maquinas[i] = new MaquinaPanel("Máquina " + (i + 1), this); // Cria um painel para cada máquina
+            maquinas[i] = new PainelMaquina("Máquina " + (i + 1), this); // Cria um painel para cada máquina
             maquinasPanel.add(maquinas[i]); // Adiciona o painel da máquina ao painel principal
         }
 
@@ -42,21 +42,21 @@ public class SwingMaquinaManager extends JFrame {
 
     // Método main que inicializa a aplicação gráfica
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(SwingMaquinaManager::new); // Executa o construtor da classe na thread de despacho de eventos
+        SwingUtilities.invokeLater(PainelControle::new); // Executa o construtor da classe na thread de despacho de eventos
     }
 }
 
 // Classe que representa o painel de controle de uma máquina
-class MaquinaPanel extends JPanel {
+class PainelMaquina extends JPanel {
     private JLabel statusLabel; // Rótulo que exibe o status da máquina
     private JLabel temperaturaLabel; // Rótulo que exibe a temperatura da máquina
     private JLabel velocidadeLabel; // Rótulo que exibe a velocidade da máquina
     private JButton ligarDesligarButton; // Botão para ligar ou desligar a máquina
     private Maquina maquina; // Objeto que representa a máquina
-    private SwingMaquinaManager manager; // Referência ao gerenciador principal para enviar alertas
+    private PainelControle manager; // Referência ao gerenciador principal para enviar alertas
 
-    // Construtor da classe MaquinaPanel
-    public MaquinaPanel(String nomeMaquina, SwingMaquinaManager manager) {
+    // Construtor da classe PainelMaquina
+    public PainelMaquina(String nomeMaquina, PainelControle manager) {
         this.maquina = new Maquina(); // Cria um novo objeto Maquina
         this.manager = manager; // Armazena a referência ao gerenciador principal
 
