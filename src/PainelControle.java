@@ -53,12 +53,12 @@ class PainelMaquina extends JPanel {
     private JLabel velocidadeLabel; // Rótulo que exibe a velocidade da máquina
     private JButton ligarDesligarButton; // Botão para ligar ou desligar a máquina
     private Maquina maquina; // Objeto que representa a máquina
-    private PainelControle manager; // Referência ao gerenciador principal para enviar alertas
+    private PainelControle painelControle; // Referência ao gerenciador principal para enviar alertas
 
     // Construtor da classe PainelMaquina
-    public PainelMaquina(String nomeMaquina, PainelControle manager) {
+    public PainelMaquina(String nomeMaquina, PainelControle painelControle) {
         this.maquina = new Maquina(); // Cria um novo objeto Maquina
-        this.manager = manager; // Armazena a referência ao gerenciador principal
+        this.painelControle = painelControle; // Armazena a referência ao gerenciador principal
 
         // Adiciona um Gestor e um Operador para receber alertas
         Gestor gestor = new Gestor("Gestor " + nomeMaquina); // Cria um novo gestor
@@ -112,7 +112,7 @@ class PainelMaquina extends JPanel {
                     for (Funcionario f : maquina.getFuncionarios()) {
                         f.update(maquina.getLastAlertMessage());
                         if (maquina.getLastAlertMessage() != null) {
-                            manager.addAlert(f.nome + ": " + maquina.getLastAlertMessage());
+                            painelControle.addAlert(f.nome + ": " + maquina.getLastAlertMessage());
                         }
                     }
                 }
