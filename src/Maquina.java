@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Maquina implements Publisher {
-    private List<Subscriber> publishers = new ArrayList<>();
+    private List<Subscriber> subscribers = new ArrayList<>();
     private List<Funcionario> funcionarios = new ArrayList<>();
 
     private double temperatura;
@@ -68,19 +68,19 @@ public class Maquina implements Publisher {
         } else {
             lastAlertMessage = "Máquina desligada";
         }
-        for (Subscriber p : publishers) {
-            p.update(lastAlertMessage);
+        for (Subscriber s : subscribers) {
+            s.update(lastAlertMessage);
         }
     }
 
     @Override
     public void add(Subscriber o) {
-        publishers.add(o);
+        subscribers.add(o);
     }
 
     @Override
     public void remove(Subscriber o) {
-        publishers.remove(o);
+        subscribers.remove(o);
     }
 
     // Atualiza os dados da máquina e notifica painéis de controle
