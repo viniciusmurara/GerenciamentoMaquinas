@@ -83,7 +83,6 @@ public class Maquina implements Publisher {
         subscribers.remove(o);
     }
 
-    // Atualiza os dados da máquina e notifica painéis de controle
     public void atualizarDadosAleatorios() {
         this.temperatura = 30 + Math.random() * 70;
         this.velocidade = Math.random() * 2000;
