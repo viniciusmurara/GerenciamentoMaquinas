@@ -3,49 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Classe principal que gerencia a interface gráfica para o gerenciamento de máquinas
-public class PainelControle extends JFrame {
-    private PainelMaquina[] maquinas = new PainelMaquina[4]; // Array para armazenar a quantidade de máquinas
-    private JTextArea alertArea; // Área de texto para exibir mensagens de alerta
-
-    // Construtor da classe PainelControle
-    public PainelControle() {
-        setTitle("Gerenciamento de Máquinas"); // Define o título da janela
-        setSize(600, 400); // Define o tamanho da janela
-        setLayout(new BorderLayout()); // Configura o layout principal da janela como BorderLayout
-
-        JPanel maquinasPanel = new JPanel(new GridLayout(2, 2)); // Cria um painel para exibir as máquinas em um GridLayout 2x2
-
-        // Loop para criar e adicionar os painéis das máquinas
-        for (int i = 0; i < maquinas.length; i++) {
-            maquinas[i] = new PainelMaquina("Máquina " + (i + 1), this); // Cria um painel para cada máquina
-            maquinasPanel.add(maquinas[i]); // Adiciona o painel da máquina ao painel principal
-        }
-
-        // Cria a área de alertas na parte inferior da janela
-        alertArea = new JTextArea(5, 40); // Cria uma área de texto com 5 linhas e 40 colunas
-        alertArea.setEditable(false); // Define que a área de texto não pode ser editada
-        JScrollPane scrollPane = new JScrollPane(alertArea); // Adiciona uma barra de rolagem à área de texto
-
-        // Adiciona os componentes ao JFrame
-        add(maquinasPanel, BorderLayout.CENTER); // Adiciona o painel das máquinas ao centro da janela
-        add(scrollPane, BorderLayout.SOUTH); // Adiciona a área de alertas na parte inferior
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Define a operação padrão ao fechar a janela
-        setVisible(true); // Torna a janela visível
-    }
-
-    // Método para adicionar uma mensagem de alerta à área de alertas
-    public void addAlert(String alertMessage) {
-        alertArea.append(alertMessage + "\n"); // Adiciona a mensagem de alerta com uma nova linha
-    }
-
-    // Método main que inicializa a aplicação gráfica
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(PainelControle::new);
-    }
-}
-
 // Classe que representa o painel de controle de uma máquina
 class PainelMaquina extends JPanel {
     private JLabel statusLabel; // Rótulo que exibe o status da máquina
@@ -117,7 +74,6 @@ class PainelMaquina extends JPanel {
                     }
                 }
             }
-
         });
         timer.start(); // Inicia o timer para atualizações periódicas
     }
@@ -129,5 +85,48 @@ class PainelMaquina extends JPanel {
         temperaturaLabel.setText("Temperatura: " + Math.round(maquina.getTemperatura()));
         velocidadeLabel.setText("Velocidade: " + Math.round(maquina.getVelocidade()));
     }
+}
 
+
+// Classe principal que gerencia a interface gráfica para o gerenciamento de máquinas
+public class PainelControle extends JFrame {
+    private PainelMaquina[] maquinas = new PainelMaquina[4]; // Array para armazenar a quantidade de máquinas
+    private JTextArea alertArea; // Área de texto para exibir mensagens de alerta
+
+    // Construtor da classe PainelControle
+    public PainelControle() {
+        setTitle("Gerenciamento de Máquinas"); // Define o título da janela
+        setSize(600, 400); // Define o tamanho da janela
+        setLayout(new BorderLayout()); // Configura o layout principal da janela como BorderLayout
+
+        JPanel maquinasPanel = new JPanel(new GridLayout(2, 2)); // Cria um painel para exibir as máquinas em um GridLayout 2x2
+
+        // Loop para criar e adicionar os painéis das máquinas
+        for (int i = 0; i < maquinas.length; i++) {
+            maquinas[i] = new PainelMaquina("Máquina " + (i + 1), this); // Cria um painel para cada máquina
+            maquinasPanel.add(maquinas[i]); // Adiciona o painel da máquina ao painel principal
+        }
+
+        // Cria a área de alertas na parte inferior da janela
+        alertArea = new JTextArea(5, 40); // Cria uma área de texto com 5 linhas e 40 colunas
+        alertArea.setEditable(false); // Define que a área de texto não pode ser editada
+        JScrollPane scrollPane = new JScrollPane(alertArea); // Adiciona uma barra de rolagem à área de texto
+
+        // Adiciona os componentes ao JFrame
+        add(maquinasPanel, BorderLayout.CENTER); // Adiciona o painel das máquinas ao centro da janela
+        add(scrollPane, BorderLayout.SOUTH); // Adiciona a área de alertas na parte inferior
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Define a operação padrão ao fechar a janela
+        setVisible(true); // Torna a janela visível
+    }
+
+    // Método para adicionar uma mensagem de alerta à área de alertas
+    public void addAlert(String alertMessage) {
+        alertArea.append(alertMessage + "\n"); // Adiciona a mensagem de alerta com uma nova linha
+    }
+
+    // Método main que inicializa a aplicação gráfica
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(PainelControle::new);
+    }
 }
