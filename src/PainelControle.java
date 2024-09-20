@@ -42,7 +42,7 @@ public class PainelControle extends JFrame {
 
     // Método main que inicializa a aplicação gráfica
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(PainelControle::new); // Executa o construtor da classe na thread de despacho de eventos
+        SwingUtilities.invokeLater(PainelControle::new);
     }
 }
 
