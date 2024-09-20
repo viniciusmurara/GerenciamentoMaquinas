@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maquina implements Publisher {
+public class Maquina {
     private List<Subscriber> subscribers = new ArrayList<>();
     private List<Funcionario> funcionarios = new ArrayList<>();
 
@@ -51,7 +51,6 @@ public class Maquina implements Publisher {
         this.velocidade = velocidade;
     }
 
-    @Override
     public void notifySubscribers() {
         if (status) {
             if (temperatura > 90) {
@@ -73,12 +72,10 @@ public class Maquina implements Publisher {
         }
     }
 
-    @Override
     public void add(Subscriber o) {
         subscribers.add(o);
     }
 
-    @Override
     public void remove(Subscriber o) {
         subscribers.remove(o);
     }
