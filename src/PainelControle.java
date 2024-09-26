@@ -57,8 +57,8 @@ class PainelMaquina extends JPanel {
             }
         });
 
-        // Atualizações automáticas de temperatura e velocidade a cada 2 segundos
-        Timer timer = new Timer(2000, new ActionListener() {
+        // Atualizações automáticas de temperatura e velocidade a cada 5 segundos
+        Timer timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (maquina.isLigada()) { // Se a máquina estiver ligada

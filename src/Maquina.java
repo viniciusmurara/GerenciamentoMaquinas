@@ -53,13 +53,13 @@ public class Maquina {
 
     public void notifySubscribers() {
         if (status) {
-            if (temperatura > 90) {
+            if (temperatura >= 95) {
                 lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura alta.";
-            } else if (temperatura < 40){
+            } else if (temperatura <= 35){
                 lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura baixa.";
             } else if (velocidade == 0){
                 lastAlertMessage = "Alerta! Falha detectada na máquina! Parada forçada.";
-            } else if (velocidade < 300) {
+            } else if (velocidade <= 400) {
                 lastAlertMessage = "Alerta! Falha detectada na máquina! Lentidão anormal.";
             } else {
                 lastAlertMessage = null;
