@@ -51,7 +51,15 @@ public class Maquina {
         this.velocidade = velocidade;
     }
 
-    public void notifySubscribers() {
+    public void add(Subscriber s) {
+        subscribers.add(s);
+    }
+
+    public void remove(Subscriber s) {
+        subscribers.remove(s);
+    }
+
+    public void notifySubscribersEmployees() {
         if (status) {
             if (temperatura >= 95) {
                 lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura alta.";
@@ -72,17 +80,12 @@ public class Maquina {
         }
     }
 
-    public void add(Subscriber o) {
-        subscribers.add(o);
-    }
-
-    public void remove(Subscriber o) {
-        subscribers.remove(o);
-    }
-
-    public void atualizarDadosAleatorios() {
-        this.temperatura = 30 + Math.random() * 70;
-        this.velocidade = Math.random() * 2000;
-        notifySubscribers();
+    public void notifySubscribersPanel() {
+        temperatura = 30 + Math.random() * 70;
+        velocidade = Math.random() * 2000;
+        notifySubscribersEmployees();
+        for (Subscriber s : subscribers) {
+            s.update(temperatura, velocidade, status);
+        }
     }
 }

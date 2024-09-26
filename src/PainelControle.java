@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // Classe que representa o painel de controle de uma máquina
-class PainelMaquina extends JPanel {
+class PainelMaquina extends JPanel implements Subscriber{
     private JLabel statusLabel; // Rótulo que exibe o status da máquina
     private JLabel temperaturaLabel; // Rótulo que exibe a temperatura da máquina
     private JLabel velocidadeLabel; // Rótulo que exibe a velocidade da máquina
@@ -53,7 +53,7 @@ class PainelMaquina extends JPanel {
                     maquina.ligaMaquina(); // Liga a máquina
                     ligarDesligarButton.setText("Desligar Máquina"); // Atualiza o texto do botão
                 }
-                atualizarPainel(); // Atualiza os rótulos com os novos valores
+                update(maquina.getTemperatura(), maquina.getVelocidade(), maquina.isLigada()); // Atualiza os rótulos com os novos valores
             }
         });
 
@@ -62,14 +62,14 @@ class PainelMaquina extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (maquina.isLigada()) { // Se a máquina estiver ligada
-                    maquina.atualizarDadosAleatorios(); // Atualiza os dados aleatórios
-                    atualizarPainel(); // Atualiza os rótulos na interface
+                    maquina.notifySubscribersPanel(); // Atualiza os dados aleatórios
+                    update(maquina.getTemperatura(), maquina.getVelocidade(), maquina.isLigada()); // Atualiza os rótulos na interface
 
                     // Notifica caso haja falha e captura a mensagem de alerta
                     for (Funcionario f : maquina.getFuncionarios()) {
                         f.update(maquina.getLastAlertMessage());
                         if (maquina.getLastAlertMessage() != null) {
-                            painelControle.addAlert(f.nome + ": " + maquina.getLastAlertMessage());
+                            painelControle.addAlert(f.update(maquina.getLastAlertMessage()));
                         }
                     }
                 }
@@ -78,18 +78,26 @@ class PainelMaquina extends JPanel {
         timer.start(); // Inicia o timer para atualizações periódicas
     }
 
+
+    @Override
+    public String update(String mensagem) {
+        return mensagem;
+    }
+
     // Método que atualiza os dados na interface
-    private void atualizarPainel() {
+    @Override
+    public void update(double temperatura, double velocidade, boolean status) {
         // Atualiza os rótulos com o status, temperatura e velocidade atuais
-        statusLabel.setText("Status: " + (maquina.isLigada() ? "Ligada" : "Desligada"));
-        temperaturaLabel.setText("Temperatura: " + Math.round(maquina.getTemperatura()));
-        velocidadeLabel.setText("Velocidade: " + Math.round(maquina.getVelocidade()));
+
+        statusLabel.setText("Status: " + (status ? "Ligada" : "Desligada"));
+        temperaturaLabel.setText("Temperatura: " + Math.round(temperatura));
+        velocidadeLabel.setText("Velocidade: " + Math.round(velocidade));
     }
 }
 
 
 // Classe principal que gerencia a interface gráfica para o gerenciamento de máquinas
-public class PainelControle extends JFrame {
+public class PainelControle extends JFrame{
     private PainelMaquina[] maquinas = new PainelMaquina[4]; // Array para armazenar a quantidade de máquinas
     private JTextArea alertArea; // Área de texto para exibir mensagens de alerta
 

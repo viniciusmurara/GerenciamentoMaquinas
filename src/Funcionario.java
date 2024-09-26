@@ -5,14 +5,13 @@ public abstract class Funcionario implements Subscriber {
         this.nome = nome;
     }
 
-    public String getNome() {
-        return nome;
+    @Override
+    public String update(String mensagem) {
+        return nome + ": " + mensagem;
     }
 
     @Override
-    public void update(String mensagem) {
-        System.out.println(nome + ": " + mensagem);
-    }
+    public void update(double temperatura, double velocidade, boolean status) {}
 
     public abstract void executarAcao();
 }
