@@ -88,7 +88,6 @@ class PainelMaquina extends JPanel implements Subscriber{
     @Override
     public void update(double temperatura, double velocidade, boolean status) {
         // Atualiza os rótulos com o status, temperatura e velocidade atuais
-
         statusLabel.setText("Status: " + (status ? "Ligada" : "Desligada"));
         temperaturaLabel.setText("Temperatura: " + Math.round(temperatura));
         velocidadeLabel.setText("Velocidade: " + Math.round(velocidade));
