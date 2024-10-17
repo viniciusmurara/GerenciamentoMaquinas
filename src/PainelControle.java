@@ -84,7 +84,7 @@ class PainelMaquina extends JPanel implements Subscriber{
         return mensagem;
     }
 
-    // Método que atualiza os dados na interface
+    // metodo que atualiza os dados na interface
     @Override
     public void update(double temperatura, double velocidade, boolean status) {
         // Atualiza os rótulos com o status, temperatura e velocidade atuais

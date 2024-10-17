@@ -51,14 +51,9 @@ public class Maquina {
 
 
     // ==== GETTERS E SETTERS ====
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
-
     public void ligaMaquina(){
         status = true;
     }
-
     public void desligaMaquina(){
         status = false;
     }
@@ -66,23 +61,21 @@ public class Maquina {
     public boolean isLigada() {
         return status;
     }
-
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
     public String getLastAlertMessage() {
         return lastAlertMessage;
     }
-
     public double getTemperatura() {
         return temperatura;
     }
-
     public double getVelocidade() {
         return velocidade;
     }
-
     public void setTemperatura(double temperatura) {
         this.temperatura = temperatura;
     }
-
     public void setVelocidade(double velocidade) {
         this.velocidade = velocidade;
     }
