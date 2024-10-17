@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maquina {
-    private List<Subscriber> subscribers = new ArrayList<>();
+public abstract class Maquina {
+    protected List<Subscriber> subscribers = new ArrayList<>();
     private List<Funcionario> funcionarios = new ArrayList<>();
 
-    private double temperatura;
-    private double velocidade;
-    private boolean status = false;
-    private String lastAlertMessage;
+    protected double temperatura;
+    protected double velocidade;
+    protected boolean status = false;
+    protected String lastAlertMessage;
 
     public void addFuncionario(Funcionario funcionario) {
         funcionarios.add(funcionario);
@@ -61,9 +61,6 @@ public class Maquina {
     public boolean isLigada() {
         return status;
     }
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
     public String getLastAlertMessage() {
         return lastAlertMessage;
     }
@@ -72,6 +69,9 @@ public class Maquina {
     }
     public double getVelocidade() {
         return velocidade;
+    }
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
     }
     public void setTemperatura(double temperatura) {
         this.temperatura = temperatura;
