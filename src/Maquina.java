@@ -15,6 +15,42 @@ public class Maquina {
         add(funcionario);
     }
 
+    public void add(Subscriber s) {
+        subscribers.add(s);
+    }
+
+    public void notifySubscribersEmployees() {
+        if (status) {
+            if (temperatura >= 95) {
+                lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura alta.";
+            } else if (temperatura <= 35){
+                lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura baixa.";
+            } else if (velocidade == 0){
+                lastAlertMessage = "Alerta! Falha detectada na máquina! Parada forçada.";
+            } else if (velocidade <= 400) {
+                lastAlertMessage = "Alerta! Falha detectada na máquina! Lentidão anormal.";
+            } else {
+                lastAlertMessage = null;
+            }
+        } else {
+            lastAlertMessage = "Máquina desligada";
+        }
+        for (Subscriber s : subscribers) {
+            s.update(lastAlertMessage);
+        }
+    }
+
+    public void notifySubscribersPanel() {
+        temperatura = 30 + Math.random() * 70;
+        velocidade = Math.random() * 2000;
+        notifySubscribersEmployees();
+        for (Subscriber s : subscribers) {
+            s.update(temperatura, velocidade, status);
+        }
+    }
+
+
+    // ==== GETTERS E SETTERS ====
     public List<Funcionario> getFuncionarios() {
         return funcionarios;
     }
@@ -49,43 +85,5 @@ public class Maquina {
 
     public void setVelocidade(double velocidade) {
         this.velocidade = velocidade;
-    }
-
-    public void add(Subscriber s) {
-        subscribers.add(s);
-    }
-
-    public void remove(Subscriber s) {
-        subscribers.remove(s);
-    }
-
-    public void notifySubscribersEmployees() {
-        if (status) {
-            if (temperatura >= 95) {
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura alta.";
-            } else if (temperatura <= 35){
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura baixa.";
-            } else if (velocidade == 0){
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Parada forçada.";
-            } else if (velocidade <= 400) {
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Lentidão anormal.";
-            } else {
-                lastAlertMessage = null;
-            }
-        } else {
-            lastAlertMessage = "Máquina desligada";
-        }
-        for (Subscriber s : subscribers) {
-            s.update(lastAlertMessage);
-        }
-    }
-
-    public void notifySubscribersPanel() {
-        temperatura = 30 + Math.random() * 70;
-        velocidade = Math.random() * 2000;
-        notifySubscribersEmployees();
-        for (Subscriber s : subscribers) {
-            s.update(temperatura, velocidade, status);
-        }
     }
 }
