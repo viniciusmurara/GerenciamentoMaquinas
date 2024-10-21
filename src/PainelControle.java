@@ -93,15 +93,12 @@ public class PainelControle extends JFrame {
         setSize(600, 400);
         setLayout(new BorderLayout());
 
-        // Painel que vai conter as máquinas
         maquinasPanel = new JPanel(new GridLayout(0, 2)); // GridLayout flexível
 
-        // Text area para exibir alertas
         alertArea = new JTextArea(5, 40);
         alertArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(alertArea);
 
-        // Botão para adicionar nova máquina
         JButton adicionarMaquinaButton = new JButton("Adicionar Máquina");
         adicionarMaquinaButton.addActionListener(new ActionListener() {
             @Override
@@ -110,7 +107,6 @@ public class PainelControle extends JFrame {
             }
         });
 
-        // Adiciona os componentes à janela
         add(maquinasPanel, BorderLayout.CENTER);
         add(scrollPane, BorderLayout.SOUTH);
         add(adicionarMaquinaButton, BorderLayout.NORTH);
@@ -121,7 +117,6 @@ public class PainelControle extends JFrame {
 
     // Método para adicionar uma nova máquina ao painel
     public void adicionarNovaMaquina() {
-        // Janela de diálogo para escolher o tipo de máquina
         String[] opcoes = {"Caldeira", "Resfriamento"};
         String escolha = (String) JOptionPane.showInputDialog(
                 this,
@@ -141,7 +136,6 @@ public class PainelControle extends JFrame {
                 factory = new MaquinaResfriamentoFactory();
             }
 
-            // Cria um novo painel de máquina e adiciona ao layout
             PainelMaquina novaMaquina = new PainelMaquina("Máquina " + (maquinasPanel.getComponentCount() + 1), this, factory);
             maquinasPanel.add(novaMaquina);
             maquinasPanel.revalidate(); // Atualiza o layout
