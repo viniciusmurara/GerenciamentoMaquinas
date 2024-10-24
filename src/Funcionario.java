@@ -15,3 +15,4 @@ public abstract class Funcionario implements Subscriber {
 
     public abstract void executarAcao();
 }
+
