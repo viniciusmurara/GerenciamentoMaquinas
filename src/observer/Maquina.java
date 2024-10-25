@@ -1,12 +1,13 @@
+package observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maquina {
+public abstract class Maquina {
     private List<Subscriber> subscribers = new ArrayList<>();
     private List<Funcionario> funcionarios = new ArrayList<>();
 
     private double temperatura;
-    private double velocidade;
     private boolean status = false;
     private String lastAlertMessage;
 
@@ -20,63 +21,61 @@ public class Maquina {
     }
 
     public void notifySubscribersEmployees() {
-        if (status) {
-            if (temperatura >= 95) {
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura alta.";
-            } else if (temperatura <= 35){
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Temperatura baixa.";
-            } else if (velocidade == 0){
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Parada forçada.";
-            } else if (velocidade <= 400) {
-                lastAlertMessage = "Alerta! Falha detectada na máquina! Lentidão anormal.";
-            } else {
-                lastAlertMessage = null;
-            }
+        double limiteTemperatura1 = 85.0;
+        double limiteTemperatura2 = 15.0;
+
+        if (temperatura > limiteTemperatura1) {
+            lastAlertMessage = "Alerta! Temperatura alta: " + temperatura + " graus!";
+        } else if(temperatura < limiteTemperatura2){
+            lastAlertMessage = "Alerta! Temperatura baixa: " + temperatura + " graus!";
         } else {
-            lastAlertMessage = "Máquina desligada";
+            lastAlertMessage = "";
         }
+
         for (Subscriber s : subscribers) {
             s.update(lastAlertMessage);
         }
     }
 
     public void notifySubscribersPanel() {
-        temperatura = 30 + Math.random() * 70;
-        velocidade = Math.random() * 2000;
         notifySubscribersEmployees();
+        double parametroEspecifico = getParametroEspecifico();
         for (Subscriber s : subscribers) {
-            s.update(temperatura, velocidade, status);
+            s.update(temperatura, parametroEspecifico, status);
         }
+
+        // Para depuração
+        System.out.println("Notificando subscritores: Temperatura = " + temperatura + ", Parametro Especifico = " + parametroEspecifico);
     }
 
+    public abstract double getParametroEspecifico();
 
     // ==== GETTERS E SETTERS ====
-    public void ligaMaquina(){
+    public void ligaMaquina() {
         status = true;
     }
-    public void desligaMaquina(){
+
+    public void desligaMaquina() {
         status = false;
     }
 
     public boolean isLigada() {
         return status;
     }
+
     public List<Funcionario> getFuncionarios() {
         return funcionarios;
     }
+
     public String getLastAlertMessage() {
         return lastAlertMessage;
     }
+
     public double getTemperatura() {
         return temperatura;
     }
-    public double getVelocidade() {
-        return velocidade;
-    }
+
     public void setTemperatura(double temperatura) {
         this.temperatura = temperatura;
-    }
-    public void setVelocidade(double velocidade) {
-        this.velocidade = velocidade;
     }
 }

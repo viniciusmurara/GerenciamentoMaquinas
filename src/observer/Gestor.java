@@ -1,3 +1,5 @@
+package observer;
+
 public class Gestor extends Funcionario {
 
     public Gestor(String nome) {
